@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.glacomplex">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,14 +11,25 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GLAComplex"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CheckoutActivity"
+            android:exported="false"
+            android:label="Checkout"
+            android:theme="@style/Theme.GLAComplex.Actionbar"/>
+        <activity
+            android:name=".activities.CartActivity"
+            android:exported="false"
+            android:label="Shopping Cart"
+            android:theme="@style/Theme.GLAComplex.Actionbar" />
+        <activity
             android:name=".activities.ProductDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.GLAComplex.Actionbar" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">

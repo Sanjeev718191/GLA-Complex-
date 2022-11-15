@@ -1,6 +1,7 @@
 package com.example.glacomplex.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.glacomplex.R;
+import com.example.glacomplex.activities.ProductDetailActivity;
 import com.example.glacomplex.databinding.ItemProductBinding;
 import com.example.glacomplex.model.Product;
 
@@ -40,6 +42,18 @@ public class ProductAdapter  extends  RecyclerView.Adapter<ProductAdapter.Produc
                 .into(holder.binding.image);
         holder.binding.label.setText(product.getName());
         holder.binding.price.setText("Rs. " + product.getPrice());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("name", product.getName());
+                intent.putExtra("image", product.getImage());
+                intent.putExtra("id", product.getId());
+                intent.putExtra("price", product.getPrice());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
