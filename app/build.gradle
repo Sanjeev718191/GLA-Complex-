@@ -64,4 +64,7 @@ dependencies {
 
     /*Cart add item library*/
     implementation 'com.github.hishd:TinyCart:1.0.1'
+
+    //web view library
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
 }

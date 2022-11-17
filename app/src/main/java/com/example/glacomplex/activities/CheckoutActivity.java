@@ -160,9 +160,9 @@ public class CheckoutActivity extends AppCompatActivity {
                                 .setPositiveButton("Pay Now", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-//                                        Intent intent = new Intent(CheckoutActivity.this, PaymentActivity.class);
-//                                        intent.putExtra("orderCode", orderNumber);
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(CheckoutActivity.this, PaymentActivity.class);
+                                        intent.putExtra("orderCode", orderNumber);
+                                        startActivity(intent);
                                     }
                                 }).show();
                     } else {
@@ -170,12 +170,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                 .setTitle("Order Failed")
                                 .setMessage("Something went wrong, please try again.")
                                 .setCancelable(false)
-                                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    }
-                                }).show();
+                                .setPositiveButton("Close", null).show();
                         Toast.makeText(CheckoutActivity.this, "Failed order.", Toast.LENGTH_SHORT).show();
                     }
                     progressDialog.dismiss();
