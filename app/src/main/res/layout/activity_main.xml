@@ -39,7 +39,7 @@
                 app:mt_placeholder="GLA Complex"
                 app:mt_navIconEnabled="true"
                 app:mt_maxSuggestionsCount="10"
-                app:mt_speechMode="true" />
+                app:mt_roundedSearchBarEnabled="true"/>
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView

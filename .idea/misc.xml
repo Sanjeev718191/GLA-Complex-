@@ -21,9 +21,20 @@
         <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/drawable-v24/ic_baseline_home_24.xml" value="0.1" />
         <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1495" />
         <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_main.xml" value="0.10092592592592593" />
-        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/header.xml" value="0.1" />
-        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_cart.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_category.xml" value="0.1398148148148148" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_my_orders.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/activity_sign_up.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/header.xml" value="0.264" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/item_cart.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/item_categories.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/item_order.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/item_product.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/layout/quantity_dialog.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/menu/cart.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/sanje/Desktop/GLAComplex/app/src/main/res/menu/drawer_menu.xml" value="0.264" />
       </map>
     </option>
   </component>

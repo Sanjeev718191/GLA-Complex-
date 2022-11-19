@@ -27,6 +27,8 @@ import com.example.glacomplex.model.Category;
 import com.example.glacomplex.model.Product;
 import com.example.glacomplex.utils.Constants;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
@@ -73,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onButtonClicked(int buttonCode) {
-                //implement user detail screen here
-//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//                startActivity(intent);
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
@@ -86,20 +85,20 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId())
                 {
                     case  R.id.nav_home:
-
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        drawerLayout.closeDrawers();
                         break;
-
-//Paste your privacy policy link
-
-//                    case  R.id.nav_Policy:{
-//
-//                        Intent browserIntent  = new Intent(Intent.ACTION_VIEW , Uri.parse(""));
-//                        startActivity(browserIntent);
-//
-//                    }
-                    //       break;
+                    case  R.id.cartBtn: {
+                        startActivity(new Intent(MainActivity.this, CartActivity.class));
+                    }
+                        break;
+                    case  R.id.myOrders: {
+                        startActivity(new Intent(MainActivity.this, MyOrders.class));
+                    }
+                    break;
+                    case  R.id.signIn: {
+                        startActivity(new Intent(MainActivity.this, SignIn.class));
+                    }
+                    break;
                     case  R.id.nav_share:{
 
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -120,6 +119,12 @@ public class MainActivity extends AppCompatActivity {
         initCategories();
         initProducts();
         initSlider();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
     }
 
 
