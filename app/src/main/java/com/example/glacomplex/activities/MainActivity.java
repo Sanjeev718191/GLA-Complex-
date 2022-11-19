@@ -1,11 +1,17 @@
 package com.example.glacomplex.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +26,7 @@ import com.example.glacomplex.databinding.ActivityMainBinding;
 import com.example.glacomplex.model.Category;
 import com.example.glacomplex.model.Product;
 import com.example.glacomplex.utils.Constants;
+import com.google.android.material.navigation.NavigationView;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
@@ -38,11 +45,18 @@ public class MainActivity extends AppCompatActivity {
     ProductAdapter productAdapter;
     ArrayList<Product> products;
 
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        navigationView = (NavigationView) findViewById(R.id.navigation_menu);
+        drawerLayout = findViewById(R.id.drawerLayout);
 
         binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
@@ -59,7 +73,47 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onButtonClicked(int buttonCode) {
+                //implement user detail screen here
+//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+//                startActivity(intent);
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case  R.id.nav_home:
+
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        break;
+
+//Paste your privacy policy link
+
+//                    case  R.id.nav_Policy:{
+//
+//                        Intent browserIntent  = new Intent(Intent.ACTION_VIEW , Uri.parse(""));
+//                        startActivity(browserIntent);
+//
+//                    }
+                    //       break;
+                    case  R.id.nav_share:{
+
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        String shareBody =  "http://play.google.com/store/apps/detail?id=" + getPackageName();
+                        String shareSub = "Try now";
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, "Share using"));
+
+                    }
+                    break;
+                }
+                return false;
             }
         });
 
@@ -67,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         initProducts();
         initSlider();
     }
+
 
     private void initSlider() {
 //        binding.carousel.addData(new CarouselItem("https://feeds.abplive.com/onecms/images/uploaded-images/2022/09/22/555838c62ba9be4994a23797004986541663833308234402_original.jpg", "Amazon Caption Here"));

@@ -67,4 +67,10 @@ dependencies {
 
     //web view library
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
+
+    //Navigation drawer start
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'com.google.android.material:material:1.2.0'
+    //navigation drawer end
 }
