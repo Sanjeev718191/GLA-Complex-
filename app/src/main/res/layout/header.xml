@@ -7,13 +7,13 @@
     android:padding="25dp">
 
     <TextView
+        android:id="@+id/userNameTextView"
         style="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="78dp"
         android:text="Guest User"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="34sp" />
 
 </LinearLayout>

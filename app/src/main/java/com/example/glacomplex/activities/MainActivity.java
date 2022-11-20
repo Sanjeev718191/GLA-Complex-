@@ -7,11 +7,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Product> products;
 
     DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView navigationView;
+    SharedPreferences sharedPreferences;
+    int registeredUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,27 +63,32 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        navigationView = (NavigationView) findViewById(R.id.navigation_menu);
+        sharedPreferences = this.getSharedPreferences("com.example.app31_s7sharpreferences", Context.MODE_PRIVATE);
+        registeredUser = sharedPreferences.getInt("registeredUser", 0);
+
+        //goto Login page
+        if(registeredUser == 0) {
+
+            Intent intent = new Intent(this, SignIn.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        //start components of main activity
+        else {
+            initSearchBar();
+            initCategories();
+            initProducts();
+            initSlider();
+            initDrawer();
+        }
+    }
+
+    private void initDrawer(){
+        navigationView = findViewById(R.id.navigation_menu);
         drawerLayout = findViewById(R.id.drawerLayout);
-
-        binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
-            @Override
-            public void onSearchStateChanged(boolean enabled) {
-
-            }
-
-            @Override
-            public void onSearchConfirmed(CharSequence text) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra("query", text.toString());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onButtonClicked(int buttonCode) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
+        View headerView = navigationView.getHeaderView(0);
+        TextView userName = (TextView) headerView.findViewById(R.id.userNameTextView);
+        userName.setText(sharedPreferences.getString("userName", "GuestUser"));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -90,13 +101,16 @@ public class MainActivity extends AppCompatActivity {
                     case  R.id.cartBtn: {
                         startActivity(new Intent(MainActivity.this, CartActivity.class));
                     }
-                        break;
+                    break;
                     case  R.id.myOrders: {
                         startActivity(new Intent(MainActivity.this, MyOrders.class));
                     }
                     break;
                     case  R.id.signIn: {
-                        startActivity(new Intent(MainActivity.this, SignIn.class));
+                        if(registeredUser == 0)
+                            startActivity(new Intent(MainActivity.this, SignIn.class));
+                        else
+                            Toast.makeText(MainActivity.this, sharedPreferences.getString("userName", "GuestUser") + " is Registered", Toast.LENGTH_SHORT).show();
                     }
                     break;
                     case  R.id.nav_share:{
@@ -115,18 +129,28 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        initCategories();
-        initProducts();
-        initSlider();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-
     }
 
+    private void initSearchBar(){
+        binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", text.toString());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+    }
 
     private void initSlider() {
 //        binding.carousel.addData(new CarouselItem("https://feeds.abplive.com/onecms/images/uploaded-images/2022/09/22/555838c62ba9be4994a23797004986541663833308234402_original.jpg", "Amazon Caption Here"));

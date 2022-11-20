@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
          binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sharedPreferences = this.getSharedPreferences("com.example.app31_s7sharpreferences", Context.MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -80,12 +83,13 @@ public class SignUp extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         progressDialog.dismiss();
-                       //add true in sharedpreference
+                        sharedPreferences.edit().putInt("registeredUser", 1).apply();
+                        sharedPreferences.edit().putString("userName", email.substring(0, email.indexOf("@"))).apply();
                         Toast.makeText(SignUp.this, "Registaration Successfull", Toast.LENGTH_SHORT).show();
                         sendToMain();
                     } else {
                         progressDialog.dismiss();
-                        //add false in sharedpreference
+                        sharedPreferences.edit().putInt("registeredUser", 0).apply();
                         Toast.makeText(SignUp.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }

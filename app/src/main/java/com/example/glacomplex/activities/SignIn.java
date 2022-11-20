@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -26,12 +28,14 @@ public class SignIn extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sharedPreferences = this.getSharedPreferences("com.example.app31_s7sharpreferences", Context.MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -72,12 +76,13 @@ public class SignIn extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         progressDialog.dismiss();
-                        //add true in sharedpreference
+                        sharedPreferences.edit().putInt("registeredUser", 1).apply();
+                        sharedPreferences.edit().putString("userName", email.substring(0, email.indexOf("@"))).apply();
                         Toast.makeText(SignIn.this, "LogIn Sucessfull", Toast.LENGTH_SHORT).show();
                         sendToMain();
                     } else {
                         progressDialog.dismiss();
-                        //add false in sharedpreference
+                        sharedPreferences.edit().putInt("registeredUser", 0).apply();
                         Toast.makeText(SignIn.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
