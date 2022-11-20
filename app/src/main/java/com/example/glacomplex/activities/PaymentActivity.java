@@ -17,10 +17,9 @@ public class PaymentActivity extends AppCompatActivity {
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-//        String orderCode = getIntent().getStringExtra("orderCode");
-//        binding.webview.setMixedContentAllowed(true);
-//        binding.webview.loadUrl(Constants.PAYMENT_URL + orderCode);
+        String orderCode = getIntent().getStringExtra("orderCode");
+        binding.webview.setMixedContentAllowed(true);
+        binding.webview.loadUrl(Constants.PAYMENT_URL + orderCode);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

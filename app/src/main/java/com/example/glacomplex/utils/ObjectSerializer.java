@@ -1,4 +1,4 @@
-package com.example.glacomplex;
+package com.example.glacomplex.utils;
 
 import android.util.Log;
 

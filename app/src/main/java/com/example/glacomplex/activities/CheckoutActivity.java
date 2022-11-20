@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.example.glacomplex.adapters.CartAdapter;
 import com.example.glacomplex.databinding.ActivityCheckoutBinding;
 import com.example.glacomplex.model.Product;
 import com.example.glacomplex.utils.Constants;
+import com.example.glacomplex.utils.ObjectSerializer;
 import com.hishd.tinycart.model.Cart;
 import com.hishd.tinycart.model.Item;
 import com.hishd.tinycart.util.TinyCartHelper;
@@ -32,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -151,6 +155,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getString("status").equals("success")) {
+                        //Add order in userDatabase
                         Toast.makeText(CheckoutActivity.this, "Success order.", Toast.LENGTH_SHORT).show();
                         String orderNumber = response.getJSONObject("data").getString("code");
                         new AlertDialog.Builder(CheckoutActivity.this)
@@ -165,6 +170,8 @@ public class CheckoutActivity extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 }).show();
+
+                        updateOrderList();
                     } else {
                         new AlertDialog.Builder(CheckoutActivity.this)
                                 .setTitle("Order Failed")
@@ -196,4 +203,21 @@ public class CheckoutActivity extends AppCompatActivity {
         finish();
         return super.onSupportNavigateUp();
     }
+
+    private void updateOrderList() throws IOException {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.app31_s7sharpreferences", Context.MODE_PRIVATE);
+        ArrayList<String> orderList = new ArrayList<>();
+        try {
+            ArrayList<String> curr = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("orderList", ""));
+            if(curr != null)
+                orderList = curr;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Product product : products) {
+            orderList.add(product.getName());
+        }
+        sharedPreferences.edit().putString("orderList",ObjectSerializer.serialize(orderList)).apply();
+    }
+
 }

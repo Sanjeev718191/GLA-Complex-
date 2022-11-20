@@ -50,7 +50,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .into(binding.productImage);
 
         getProductDetails(id);
-        Log.i("this is product details", "the id of product is "+ id);
+        //Log.i("this is product details", "the id of product is "+ id);
 
         getSupportActionBar().setTitle(name);
 

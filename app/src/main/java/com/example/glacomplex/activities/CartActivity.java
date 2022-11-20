@@ -21,8 +21,10 @@ import java.util.Map;
 public class CartActivity extends AppCompatActivity {
 
     ActivityCartBinding binding;
-    CartAdapter adapter;
-    ArrayList<Product> products;
+    static CartAdapter adapter;
+    static ArrayList<Product> products;
+    static Cart cart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
 
         products = new ArrayList<>();
 
-        Cart cart = TinyCartHelper.getCart();
+        cart = TinyCartHelper.getCart();
 
         for (Map.Entry<Item, Integer> item : cart.getAllItemsWithQty().entrySet()) {
             Product product = (Product) item.getKey();
@@ -70,6 +72,13 @@ public class CartActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+//    public void emptyCart(){
+//        cart.clearCart();
+//        updateCart();
+//    }
+//    public void updateCart(){
+//
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
